@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="chess.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="board" class="board">
+
+        </div>
+    </div>
+    <script>
+        'use strict';
+        const board = document.getElementById('board');
+
+        const darkCell = document.createElement('div');
+        darkCell.classList.add('dark-cell');
+
+        const lightCell = document.createElement('div');
+        lightCell.classList.add('light-cell');
+
+        function createBoard() {
+
+            for (let i = 1; i < 9; i++) {
+                const numerRow = document.createElement('h2');
+                numerRow.innerHTML = i;
+                const row = document.createElement('div');
+                row.classList.add('row');
+
+                for (let j = 1; j < 10; j++) {
+                    const cell = document.createElement('div');
+                    if (i % 2 == j % 2) {
+                        cell.className = 'light-cell';
+                    } else {
+                        cell.className = 'dark-cell';
+                    }
+                    row.prepend(cell);
+                }
+                board.prepend(row);
+            }
+        }
+        createBoard();
+
+        function addNumberCell() {
+            const rows = document.querySelectorAll(".row");
+            for (let i = 0; rows.length > i; i++) {
+                const number = document.createElement('h2');
+                number.innerHTML = rows.length - i;
+                const cellNumber = document.createElement('div');
+                cellNumber.classList.add('letter-cell');
+                rows[i].prepend(cellNumber);
+                cellNumber.prepend(number);
+
+            }
+
+            for (let i = 0; rows.length > i; i++) {
+                const number = document.createElement('h2');
+                number.innerHTML = rows.length - i;
+                const cellNumber = document.createElement('div');
+                cellNumber.classList.add('letter-cell', 'cell_reverse');
+                rows[i].append(cellNumber);
+                cellNumber.prepend(number);
+            }
+        }
+
+        addNumberCell();
+
+        function addLetterCell() {
+            let arrayColumn = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+
+            const rowLetter = document.createElement('div');
+
+            rowLetter.classList.add('row-letter');
+            board.prepend(rowLetter);
+
+            for (let i = 0; i < 8; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell-letter', 'cell-letter_reverse');
+                const letter = document.createElement('h2');
+                letter.classList.add('letter')
+                letter.innerHTML = arrayColumn[i];
+                rowLetter.append(cell);
+                cell.prepend(letter);
+            }
+            for (let j = 0; j < 2; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell-letter');
+                if (j == 0) {
+                    rowLetter.prepend(cell);
+                } else if (j == 1) {
+                    rowLetter.append(cell);
+                }
+            }
+
+            function addLetterCellDown() {
+                const rowLetter = document.createElement('div');
+
+                rowLetter.classList.add('row-letter');
+                board.append(rowLetter);
+
+                for (let i = 0; i < 8; i++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell-letter');
+                    const letter = document.createElement('h2');
+                    letter.classList.add('letter')
+                    letter.innerHTML = arrayColumn[i];
+                    rowLetter.append(cell);
+                    cell.prepend(letter);
+                }
+                for (let j = 0; j < 2; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell-letter');
+                    if (j == 0) {
+                        rowLetter.prepend(cell);
+                    } else if (j == 1) {
+                        rowLetter.append(cell);
+                    }
+                }
+            }
+            addLetterCellDown();
+
+        }
+        addLetterCell();
+    </script>
+</body>
+
+</html>
